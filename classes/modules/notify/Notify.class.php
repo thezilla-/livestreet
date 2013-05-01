@@ -63,8 +63,9 @@ class ModuleNotify extends Module {
 	 * @param string $sSubject Тема письма
 	 * @param array $aAssign Ассоциативный массив для загрузки переменных в шаблон письма
 	 * @param string|null $sPluginName Плагин из которого происходит отправка
+	 * @param bool $bForceSend Отправлять сразу, даже при опции module.notify.delayed = true
 	 */
-	public function Send($oUserTo,$sTemplate,$sSubject,$aAssign=array(),$sPluginName=null) {
+	public function Send($oUserTo,$sTemplate,$sSubject,$aAssign=array(),$sPluginName=null,$bForceSend=false) {
 		if ($oUserTo instanceof ModuleUser_EntityUser) {
 			$sMail=$oUserTo->getMail();
 			$sName=$oUserTo->getLogin();
@@ -87,7 +88,7 @@ class ModuleNotify extends Module {
 		 * то добавляем задание в массив. В противном случае,
 		 * сразу отсылаем на email
 		 */
-		if(Config::Get('module.notify.delayed')) {
+		if(Config::Get('module.notify.delayed') and !$bForceSend) {
 			$oNotifyTask=Engine::GetEntity(
 				'Notify_Task',
 				array(

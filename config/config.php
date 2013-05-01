@@ -48,13 +48,14 @@ $config['path']['root']['server']     = dirname(dirname(__FILE__));           //
  * Для CLI режима использовать
  * $config['path']['root']['server']     = dirname(dirname(__FILE__));           // полный путь до сайта в файловой системе
  */
-$config['path']['root']['engine']     = '___path.root.server___/engine';  // полный путь до сайта в файловой системе;
-$config['path']['root']['engine_lib'] = '___path.root.web___/engine/lib'; // полный путь до сайта в файловой системе
-$config['path']['static']['root']     = '___path.root.web___';            // чтоб можно было статику засунуть на отдельный сервер
-$config['path']['static']['skin']     = '___path.static.root___/templates/skin/___view.skin___';
-$config['path']['uploads']['root']    = '/uploads';                          // директория для загрузки файлов
-$config['path']['uploads']['images']  ='___path.uploads.root___/images';
-$config['path']['offset_request_url'] = 0;                                   // иногда помогает если сервер использует внутренние реврайты
+$config['path']['root']['engine']      = '___path.root.server___/engine';  // полный путь до сайта в файловой системе;
+$config['path']['root']['engine_lib']  = '___path.root.web___/engine/lib'; // полный путь до сайта в файловой системе
+$config['path']['static']['root']      = '___path.root.web___';            // чтоб можно было статику засунуть на отдельный сервер
+$config['path']['static']['skin']      = '___path.static.root___/templates/skin/___view.skin___';
+$config['path']['static']['framework'] = "___path.static.root___/templates/framework"; // Front-end framework
+$config['path']['uploads']['root']     = '/uploads';                          // директория для загрузки файлов
+$config['path']['uploads']['images']   ='___path.uploads.root___/images';
+$config['path']['offset_request_url']  = 0;                                   // иногда помогает если сервер использует внутренние реврайты
 /**
  * Настройки шаблонизатора Smarty
  */
@@ -216,33 +217,56 @@ $config['router']['config']['action_default']   = 'index';
 $config['router']['config']['action_not_found'] = 'error';
 
 
-$config['head']['default']['js']  = array(
-	"___path.root.engine_lib___/external/html5shiv.js" => array('browser'=>'lt IE 9'),
-	"___path.root.engine_lib___/external/jquery/jquery.js",
-	"___path.root.engine_lib___/external/jquery/jquery-ui.js",
-	"___path.root.engine_lib___/external/jquery/jquery.notifier.js",
-	"___path.root.engine_lib___/external/jquery/jquery.jqmodal.js",
-	"___path.root.engine_lib___/external/jquery/jquery.scrollto.js",
-	"___path.root.engine_lib___/external/jquery/jquery.rich-array.min.js",
-	"___path.root.engine_lib___/external/jquery/markitup/jquery.markitup.js",
-	"___path.root.engine_lib___/external/jquery/jquery.form.js",
-	"___path.root.engine_lib___/external/jquery/jquery.jqplugin.js",
-	"___path.root.engine_lib___/external/jquery/jquery.cookie.js",
-	"___path.root.engine_lib___/external/jquery/jquery.serializejson.js",
-	"___path.root.engine_lib___/external/jquery/jquery.file.js",
-	"___path.root.engine_lib___/external/jquery/jcrop/jquery.Jcrop.js",
-	"___path.root.engine_lib___/external/jquery/poshytip/jquery.poshytip.js",
-	"___path.root.engine_lib___/external/jquery/jquery.placeholder.min.js",
-	"___path.root.engine_lib___/external/jquery/jquery.charcount.js",
-	"___path.root.engine_lib___/external/prettify/prettify.js",
-	"___path.root.server___/templates/framework/js/main.js",
-	"___path.root.server___/templates/framework/js/dropdown.js",
-	"___path.root.server___/templates/framework/js/modal.js",
-	"___path.root.server___/templates/framework/js/tab.js",
-	"___path.root.server___/templates/framework/js/hook.js",
+$config['head']['default']['js'] = array(
+	/* Vendor libs */
+	"___path.static.framework___/js/vendor/html5shiv.js" => array('browser'=>'lt IE 9'),
+	"___path.static.framework___/js/vendor/jquery-1.9.1.min.js",
+	"___path.static.framework___/js/vendor/jquery-ui/js/jquery-ui-1.10.2.custom.min.js",
+	"___path.static.framework___/js/vendor/jquery-ui/js/localization/jquery-ui-datepicker-ru.js",
+	"___path.static.framework___/js/vendor/jquery.browser.js",
+	"___path.static.framework___/js/vendor/jquery.notifier.js",
+	"___path.static.framework___/js/vendor/jquery.scrollto.js",
+	"___path.static.framework___/js/vendor/jquery.rich-array.min.js",
+	"___path.static.framework___/js/vendor/jquery.form.js",
+	"___path.static.framework___/js/vendor/jquery.jqplugin.js",
+	"___path.static.framework___/js/vendor/jquery.cookie.js",
+	"___path.static.framework___/js/vendor/jquery.serializejson.js",
+	"___path.static.framework___/js/vendor/jquery.file.js",
+	"___path.static.framework___/js/vendor/jcrop/jquery.Jcrop.js",
+	"___path.static.framework___/js/vendor/jquery.placeholder.min.js",
+	"___path.static.framework___/js/vendor/jquery.charcount.js",
+	"___path.static.framework___/js/vendor/jquery.imagesloaded.js",
+	"___path.static.framework___/js/vendor/markitup/jquery.markitup.js",
+	"___path.static.framework___/js/vendor/prettify/prettify.js",
+	"___path.static.framework___/js/vendor/prettyphoto/js/jquery.prettyphoto.js",
+
+	/* Core */
+	"___path.static.framework___/js/core/main.js",
+	"___path.static.framework___/js/core/hook.js",
+
+	/* User Interface */
+	"___path.static.framework___/js/ui/popup.js",
+	"___path.static.framework___/js/ui/dropdown.js",
+	"___path.static.framework___/js/ui/tooltip.js",
+	"___path.static.framework___/js/ui/popover.js",
+	"___path.static.framework___/js/ui/tab.js",
+	"___path.static.framework___/js/ui/modal.js",
+	"___path.static.framework___/js/ui/toolbar.js",
 );
+
 $config['head']['default']['css'] = array(
-	"___path.static.skin___/css/reset.css",
+	// Framework styles
+	"___path.static.framework___/css/reset.css",
+	"___path.static.framework___/css/helpers.css",
+	"___path.static.framework___/css/text.css",
+	"___path.static.framework___/css/dropdowns.css",
+	"___path.static.framework___/css/buttons.css",
+	"___path.static.framework___/css/forms.css",
+	"___path.static.framework___/css/navs.css",
+	"___path.static.framework___/css/modals.css",
+	"___path.static.framework___/css/tooltip.css",
+	"___path.static.framework___/css/popover.css",
+	"___path.static.framework___/css/toolbar.css"
 );
 
 /**
