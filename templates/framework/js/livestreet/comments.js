@@ -1,13 +1,14 @@
+/**
+ * Комментарии
+ */
+
 var ls = ls || {};
 
-/**
-* Обработка комментариев
-*/
 ls.comments = (function ($) {
 	/**
-	* Опции
-	*/
-	this.options = {
+	 * Опции
+	 */
+	this.defaults = {
 		type: {
 			topic: {
 				url_add: 		aRouter.blog+'ajaxaddcomment/',
@@ -19,14 +20,15 @@ ls.comments = (function ($) {
 			}
 		},
 		classes: {
-			form_loader: 'loader',
+			form_loader: 'loading',
+			folding: 'comment-folding',
 			comment_new: 'comment-new',
 			comment_current: 'comment-current',
 			comment_deleted: 'comment-deleted',
 			comment_self: 'comment-self',
 			comment: 'comment',
-			comment_goto_parent: 'goto-comment-parent',
-			comment_goto_child: 'goto-comment-child'
+			comment_goto_parent: 'comment-goto-parent',
+			comment_goto_child: 'comment-goto-child'
 		},
 		wysiwyg: null,
 		folding: true
@@ -35,6 +37,44 @@ ls.comments = (function ($) {
 	this.iCurrentShowFormComment=0;
 	this.iCurrentViewComment=null;
 	this.aCommentNew=[];
+	
+	/**
+	 * Init
+	 * @param  {Object} options Options
+	 */
+	this.init = function(options) {
+		this.options = $.extend({}, this.defaults, options);
+
+		this.initEvent();
+		this.calcNewComments();
+		this.checkFolding();
+		this.toggleCommentForm(this.iCurrentShowFormComment);
+		
+		if (typeof(this.options.wysiwyg)!='number') {
+			this.options.wysiwyg = Boolean(WYSIWYG && tinyMCE);
+		}
+		ls.hook.run('ls_comments_init_after',[],this);
+	};
+	
+	this.initEvent = function() {
+		$('#form_comment_text').bind('keyup', function(e) {
+			key = e.keyCode || e.which;
+			if(e.ctrlKey && (key == 13)) {
+				$('#comment-button-submit').click();
+				return false;
+			}
+		});
+		
+		if(this.options.folding){
+			$('.' + this.options.classes.folding).click(function(e){
+				if ($(e.target).hasClass("folded")) {
+					this.expandComment(e.target);
+				} else {
+					this.collapseComment(e.target);
+				}
+			}.bind(this));
+		}
+	};
 
 	// Добавляет комментарий
 	this.add = function(formObj, targetId, targetType) {
@@ -139,12 +179,9 @@ ls.comments = (function ($) {
 				if (aCmt.length > 0 && result.iMaxIdComment) { 
 					$("#comment_last_id").val(result.iMaxIdComment);
 					$('#count-comments').text(parseInt($('#count-comments').text())+aCmt.length);
-					if (ls.blocks) {
-						var curItemBlock=ls.blocks.getCurrentItem('stream');
-						if (curItemBlock.data('type')=='comment') {
-							ls.blocks.load(curItemBlock, 'stream');
-						}
-					}
+
+					var streamComments = $('#js-stream-tabs').is(':visible') ? $('#js-stream-tabs [data-name=block-stream-comments]') : $('#js-stream-dropdown [data-name=block-stream-comments]') ;
+					(streamComments.length && streamComments.hasClass('active')) && streamComments.tab('activate');
 				}
 				var iCountOld=0;
 				if (bNotFlushNew) {
@@ -297,7 +334,7 @@ ls.comments = (function ($) {
 		if(!this.options.folding){
 			return false;
 		}
-		$(".folding").each(function(index, element){
+		$('.' + this.options.classes.folding).each(function(index, element){
 			if ($(element).parent(".comment").next(".comment-wrapper").length == 0) {
 				$(element).hide();
 			} else {
@@ -316,47 +353,15 @@ ls.comments = (function ($) {
 	};
 
 	this.expandCommentAll = function() {
-		$.each($(".folding"),function(k,v){
+		$.each($('.' + this.options.classes.folding),function(k,v){
 			this.expandComment(v);
 		}.bind(this));
 	};
 	
 	this.collapseCommentAll = function() {
-		$.each($(".folding"),function(k,v){
+		$.each($('.' + this.options.classes.folding),function(k,v){
 			this.collapseComment(v);
 		}.bind(this));
-	};
-	
-	this.init = function() {
-		this.initEvent();
-		this.calcNewComments();
-		this.checkFolding();
-		this.toggleCommentForm(this.iCurrentShowFormComment);
-		
-		if (typeof(this.options.wysiwyg)!='number') {
-			this.options.wysiwyg = Boolean(BLOG_USE_TINYMCE && tinyMCE);
-		}
-		ls.hook.run('ls_comments_init_after',[],this);
-	};
-	
-	this.initEvent = function() {
-		$('#form_comment_text').bind('keyup', function(e) {
-			key = e.keyCode || e.which;
-			if(e.ctrlKey && (key == 13)) {
-				$('#comment-button-submit').click();
-				return false;
-			}
-		});
-		
-		if(this.options.folding){
-			$(".folding").click(function(e){
-				if ($(e.target).hasClass("folded")) {
-					this.expandComment(e.target);
-				} else {
-					this.collapseComment(e.target);
-				}
-			}.bind(this));
-		}
 	};
 
 	return this;
