@@ -1,74 +1,70 @@
-
-/* General
----------------------------------------------------- */
+/**
+ * Base
+ */
 body {
 	font: normal 13px/18px Arial, sans-serif;
 	padding: 20px;
 }
 
 
-/* Some basic styles
----------------------------------------------------- */
+/**
+ * Typo
+ */
 h1, h2, h3 ,h4, h5, h6 { font-family: Arial, sans-serif; font-weight: bold; }
-h2 { font-size: 20px; line-height: 28px; margin-bottom: 10px; }
-h3 { font-size: 18px; line-height: 26px; margin-bottom: 10px; }
+
+.page-header { font-size: 20px; line-height: 28px; margin-bottom: 15px; }
 
 p { margin-bottom: 10px; }
 
-a                   { color: #00e; }
-a:hover             { color: #f00; }
-
-a.link-dotted       { text-decoration: none; border-bottom: 1px dotted #00e; }
-a.link-dotted:hover { color: #f00; border-color: #f00; text-decoration: none; }
+a       { color: #00e; }
+a:hover { color: #f00; }
 
 
-/* Grid
----------------------------------------------------- */
+/**
+ * Grid
+ */
 #container { width: 900px; margin: 0 auto 20px; }
-#header    { padding: 10px; margin-bottom: 20px; background: #f7f7f7; }
-#nav       { padding: 10px; margin-bottom: 20px; margin-bottom: 20px; background: #f7f7f7; }
+#header    { margin: 20px 0 40px; }
+#nav       { margin-bottom: 20px; }
 #wrapper   { margin-bottom: 20px; }
-#content   { padding: 10px; float: left; width: 560px; margin-right: 20px; background: #f7f7f7; }
+#content   { padding: 20px; float: left; width: 540px; margin-right: 20px; background: #f7f7f7; }
 #sidebar   { float: left; width: 300px; }
 #footer    { padding: 10px; background: #f7f7f7; }
 
-#content.content-full-width { width: 880px; }
+#container.no-sidebar #content { width: 880px; }
 
 
-/* Footer
----------------------------------------------------- */
-#footer .copyright { float: right; }
+/**
+ * Header
+ */
+#header a                  { text-decoration: none; color: #000; }
+
+#header .site-name         { margin: 0 0 10px; font-size: 54px; line-height: 1em; font-weight: bold; }
+#header .site-name a:hover { color: #3a41b8; }
+#header .site-description  { color: #777; font-size: 15px; font-weight: normal; }
 
 
-/* Navigation
----------------------------------------------------- */
-#nav ul li { float: left; margin-right: 20px; }
-
-
-/* Blocks
----------------------------------------------------- */
-.block            { padding: 10px; margin-bottom: 20px; background: #f7f7f7; }
+/**
+ * Blocks
+ */
+.block            { padding: 20px; margin-bottom: 20px; background: #f7f7f7; }
 .block:last-child { margin-bottom: 0; }
 
+.block-title      { font-size: 20px; margin-bottom: 10px; }
 
-/* Stat
----------------------------------------------------- */
+
+/**
+ * Stat
+ */
 .stat-performance          { width: 860px; margin: 0 auto; padding: 15px 20px; background: #fafafa; }
 .stat-performance table td { width: 200px; vertical-align: top; color: #777; }
 .stat-performance h4       { font-weight: bold; color: #000; }
 
 
-/* System messages
----------------------------------------------------- */
+/**
+ * System messages
+ */
 .system-message-error 			{ background: #f0c8c8; color: #b22626; padding: 10px 15px; margin-bottom: 15px; }
 .system-message-notice 			{ background: #dafad8; color: #4bb23b; padding: 10px 15px; margin-bottom: 15px; }
 .system-message-notice a		{ color: #479839; text-decoration: underline; }
 .system-message-notice a:hover	{ color: #4bb23b; }
-
-
-/* Helpers
----------------------------------------------------- */
-.clearfix:before,
-.clearfix:after { content: ""; display: table; }
-.clearfix:after { clear: both; }
-.clearfix 		{ zoom: 1; }

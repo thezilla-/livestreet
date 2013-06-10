@@ -1,0 +1,7 @@
+/**
+ * Modals
+ */
+
+.modal .modal-header { padding: 10px 20px; }
+.modal .modal-header h3 { margin-bottom: 0; }
+.modal .modal-header .modal-close { text-decoration: none; }
