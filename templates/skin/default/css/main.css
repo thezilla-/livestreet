@@ -32,7 +32,7 @@ a:hover { color: #f00; }
 #sidebar         { float: right; width: 300px; }
 #footer          { padding: 10px; background: #f7f7f7; }
 
-#container.no-sidebar #content { width: 100%; margin-right: 0; }
+#container.no-sidebar #content { margin-right: 0; }
 
 
 /**
