@@ -114,33 +114,35 @@
 			{* Вспомогательный контейнер-обертка *}
 			<div id="wrapper" class="clearfix {hook run='wrapper_class'}">
 				{* Контент *}
-				<div id="content" role="main">
+				<div id="content-wrapper" role="main">
+					<div id="content" role="main">
 
-					{hook run='content_begin'}
-					{block name='layout_content_begin'}{/block}
+						{hook run='content_begin'}
+						{block name='layout_content_begin'}{/block}
 
-					{* Навигация *}
-					{if $sNav or $sNavContent}
-						<div class="nav-group">
-							{if $sNav}
-								{if in_array($sNav, $aMenuContainers)}
-									{$aMenuFetch.$sNav}
+						{* Навигация *}
+						{if $sNav or $sNavContent}
+							<div class="nav-group">
+								{if $sNav}
+									{if in_array($sNav, $aMenuContainers)}
+										{$aMenuFetch.$sNav}
+									{else}
+										{include file="navs/nav.$sNav.tpl"}
+									{/if}
 								{else}
-									{include file="navs/nav.$sNav.tpl"}
+									{include file="navs/nav.$sNavContent.content.tpl"}
 								{/if}
-							{else}
-								{include file="navs/nav.$sNavContent.content.tpl"}
-							{/if}
-						</div>
-					{/if}
+							</div>
+						{/if}
 
-					{* Системные сообщения *}
-					{include file='system_message.tpl'}
+						{* Системные сообщения *}
+						{include file='system_message.tpl'}
 
-					{block name='layout_content'}{/block}
+						{block name='layout_content'}{/block}
 
-					{block name='layout_content_end'}{/block}
-					{hook run='content_end'}
+						{block name='layout_content_end'}{/block}
+						{hook run='content_end'}
+					</div>
 				</div>
 
 
