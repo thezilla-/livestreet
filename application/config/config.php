@@ -315,6 +315,9 @@ $config['db']['table']['storage']			  = '___db.table.prefix___storage';
 $config['db']['table']['poll']			  = '___db.table.prefix___poll';
 $config['db']['table']['poll_answer']			  = '___db.table.prefix___poll_answer';
 $config['db']['table']['poll_vote']			  = '___db.table.prefix___poll_vote';
+$config['db']['table']['category']			  = '___db.table.prefix___category';
+$config['db']['table']['category_type']		  = '___db.table.prefix___category_type';
+$config['db']['table']['category_target']	  = '___db.table.prefix___category_target';
 
 $config['db']['tables']['engine'] = 'InnoDB';  // InnoDB или MyISAM
 
@@ -520,6 +523,7 @@ $config['head']['default']['js'] = array(
 	"___path.application.web___/frontend/common/js/talk.js",
 	"___path.application.web___/frontend/common/js/vote.js",
 	"___path.application.web___/frontend/common/js/poll.js",
+	"___path.application.web___/frontend/common/js/poll-manage.js",
 	"___path.application.web___/frontend/common/js/subscribe.js",
 	"___path.application.web___/frontend/common/js/geo.js",
 	"___path.application.web___/frontend/common/js/wall.js",
